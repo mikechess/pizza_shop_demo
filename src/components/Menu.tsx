@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 import menu from '../../menu.json'
 import React from 'react'
+import PizzaOverlay from './PizzaOverlay'
 
-interface PizzaType {
+export interface PizzaType {
   id: number
   name: string
   description: string
@@ -16,6 +17,17 @@ interface Category {
 }
 
 const Menu: React.FC<Category> = ({ selectedCategory }) => {
+
+    const [selectedPizza, setSelectedPizza] = React.useState<PizzaType | null >(null)
+
+    const openOverlay = (pizza: PizzaType) => {
+        setSelectedPizza(pizza)
+    }
+
+    const closeOverlay = () => {
+        setSelectedPizza(null)
+    }
+
   //filter the menu based on selected category
   const filteredMenu =
     selectedCategory === 'All'
@@ -25,7 +37,7 @@ const Menu: React.FC<Category> = ({ selectedCategory }) => {
   return (
     <MenuWrapper>
       {filteredMenu.map((pizza: PizzaType) => (
-        <div className="menuContainer" key={pizza.id}>
+        <div className="menuContainer" key={pizza.id} onClick={() => openOverlay(pizza)}>
           <img src={pizza.image} alt="" />
           <div className="topInfo">
             <h1>{pizza.name}</h1>
@@ -34,6 +46,10 @@ const Menu: React.FC<Category> = ({ selectedCategory }) => {
           </div>
         </div>
       ))}
+
+      {selectedPizza && (
+        <PizzaOverlay allItems={selectedPizza} closePopup={closeOverlay} />
+      )}
     </MenuWrapper>
   )
 }
