@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import menu from '../../menu.json'
+import React from 'react'
 
 interface PizzaType {
   id: number
@@ -14,7 +15,7 @@ interface Category {
   selectedCategory: string
 }
 
-const Menu: ReactFC<Category> = ({ selectedCategory }) => {
+const Menu: React.FC<Category> = ({ selectedCategory }) => {
   //filter the menu based on selected category
   const filteredMenu =
     selectedCategory === 'All'

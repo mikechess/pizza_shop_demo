@@ -9,7 +9,7 @@ interface filterData {
   selectedCategory: string
 }
 
-const Navbar: React.FC = ({ onChangeCategory, selectedCategory }) => {
+const Navbar: React.FC<filterData> = ({ onChangeCategory, selectedCategory }) => {
   return (
     <NavbarWrapper>
       <div className="navbar">
