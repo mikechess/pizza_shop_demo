@@ -4,7 +4,12 @@ import PizzaLogo from '../../public/assets/pizzaria.jpg'
 
 const categories = ['All', 'Chicken', 'Vegetarian', 'Meat']
 
-const Navbar = () => {
+interface filterData {
+  onChangeCategory: (category: string) => void
+  selectedCategory: string
+}
+
+const Navbar: React.FC = ({ onChangeCategory, selectedCategory }) => {
   return (
     <NavbarWrapper>
       <div className="navbar">
@@ -14,7 +19,9 @@ const Navbar = () => {
       <div className="categories">
         <div className="tags">
           {categories.map((category) => (
-            <h3 key={category}>{category}</h3>
+            <h3 key={category} onClick={() => onChangeCategory(category)} className={selectedCategory === category? 'active' : ''}>
+              {category}
+            </h3>
           ))}
         </div>
       </div>

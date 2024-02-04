@@ -10,10 +10,20 @@ interface PizzaType {
   category: string
 }
 
-const Menu = () => {
+interface Category {
+  selectedCategory: string
+}
+
+const Menu: ReactFC<Category> = ({ selectedCategory }) => {
+  //filter the menu based on selected category
+  const filteredMenu =
+    selectedCategory === 'All'
+      ? menu
+      : menu.filter((pizza) => pizza.category === selectedCategory)
+
   return (
     <MenuWrapper>
-      {menu.map((pizza: PizzaType) => (
+      {filteredMenu.map((pizza: PizzaType) => (
         <div className="menuContainer" key={pizza.id}>
           <img src={pizza.image} alt="" />
           <div className="topInfo">
